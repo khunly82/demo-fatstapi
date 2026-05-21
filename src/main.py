@@ -1,5 +1,5 @@
 from fastapi import APIRouter, FastAPI, Request, HTTPException
-import controllers
+from src import controllers
 
 app = FastAPI()
 

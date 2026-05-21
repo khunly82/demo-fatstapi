@@ -1,7 +1,6 @@
 from .db import Base
 from sqlalchemy.orm import Mapped, mapped_column
 
-
 class Student(Base):
     __tablename__ = 'students'
     id: Mapped[int] = mapped_column(primary_key=True)
