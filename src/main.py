@@ -1,7 +1,10 @@
 from fastapi import APIRouter, FastAPI, Request, HTTPException
+from fastapi.staticfiles import StaticFiles
 from src import controllers
 
 app = FastAPI()
+
+app.mount('/public', StaticFiles(directory='src/public'), name='public')
 
 def add_routers(app):
     for item_name in dir(controllers):
