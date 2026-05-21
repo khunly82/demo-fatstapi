@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-class base(MappedAsDataclass, DeclarativeBase):
+class Base(MappedAsDataclass, DeclarativeBase):
     pass
 
 engine = create_engine(url=os.getenv('DB_URL'))
