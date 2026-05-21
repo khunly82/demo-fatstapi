@@ -1,0 +1,18 @@
+{% extends '_layout.html' %}
+
+{% block title %}
+    Page des étudiants
+{% endblock title %}
+
+{% block main %} 
+    <table>
+    {% for s in students %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.full_name }}</td>
+            <td>{{ s.gender }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock main %}
+
