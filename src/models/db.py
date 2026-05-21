@@ -11,7 +11,7 @@ class Base(MappedAsDataclass, DeclarativeBase):
 engine = create_engine(url=os.getenv('DB_URL'))
 session_maker = sessionmaker(bind=engine)
 
-def Session():
+def get_session():
     session = session_maker()
     try:
         yield session

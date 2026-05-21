@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Request, Depends
 from sqlalchemy import select
+from sqlalchemy.orm import Session
+from fastapi.templating import Jinja2Templates
 from src.dto.student_dto import StudentDto
 from src.dto.student_form import StudentForm
-from src.models import Session, Student
-from sqlalchemy.orm import Session as SqlSession
-from fastapi.templating import Jinja2Templates
+from src.models.db import get_session
+from src.models.student import Student
 
 student_router = APIRouter(prefix="/student")
 
@@ -13,7 +14,7 @@ template = Jinja2Templates(directory='src/views')
 @student_router.get('')
 def get_student(
     request: Request, 
-    session: SqlSession = Depends(Session)
+    session: Session = Depends(get_session)
 ):
     stmt = select(Student)
     students = session.scalars(stmt).all()
@@ -34,7 +35,7 @@ def get_student(
 def add_student(
     _: Request, 
     form: StudentForm, 
-    session: SqlSession = Depends(Session)
+    session: Session = Depends(get_session)
 ) -> Student:
     student = Student(**form.__dict__)
     session.add(student)
