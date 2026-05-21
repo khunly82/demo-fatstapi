@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Request, Depends
 from sqlalchemy import select
 from src.dto.student_dto import StudentDto
+from src.dto.student_form import StudentForm
 from src.models import Session, Student
 from sqlalchemy.orm import Session as SqlSession 
 
@@ -18,3 +19,15 @@ def get_student(
         full_name=f'{item.last_name} {item.first_name}',
         gender='Female' if item.is_female else 'Male'
     ) for item in students]
+
+@student_router.post('')
+def add_student(
+    _: Request, 
+    form: StudentForm, 
+    session: SqlSession = Depends(Session)
+):
+    student = Student(**form.__dict__)
+    session.add(student)
+    session.commit()
+    session.refresh(student)
+    return student
