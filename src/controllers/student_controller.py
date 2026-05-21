@@ -25,7 +25,7 @@ def add_student(
     _: Request, 
     form: StudentForm, 
     session: SqlSession = Depends(Session)
-):
+) -> Student:
     student = Student(**form.__dict__)
     session.add(student)
     session.commit()
